@@ -6,8 +6,8 @@ module.exports = {
   },
   extends: ["eslint:recommended", "google"],
   rules: {
-    quotes: ["error", "double"],
-    "object-curly-spacing": false,
+    "quotes": "off",
+    "object-curly-spacing": "off",
   },
 
   parserOptions: {

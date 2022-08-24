@@ -3,9 +3,20 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./index.css";
 
+const intervalMS = 60 * 60 * 1000;
+
 const updateSW = registerSW({
-  onNeedRefresh() {},
-  onOfflineReady() {},
+  onRegistered(r) {
+    r &&
+      setInterval(() => {
+        r.update();
+      }, intervalMS);
+  },
+  onNeedRefresh() {
+    if (confirm("Bora update?")) {
+      updateSW();
+    }
+  },
 });
 
 createApp(App).mount("#app");
