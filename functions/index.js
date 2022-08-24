@@ -1,7 +1,8 @@
 const functions = require("firebase-functions");
 const whois = require("whois");
-const cors = require("cors")({origin: true});
-const {format, parseISO} = require("date-fns");
+const whoiser = require("whoiser");
+const cors = require("cors")({ origin: true });
+const { format, parseISO } = require("date-fns");
 /**
  * @param {string} rawData
  * @return {string} data
@@ -18,7 +19,7 @@ function transformData(rawData) {
  */
 function filterWhois(rawWhois) {
   const arrWhois = rawWhois.split("\n");
-  const data = {raw: {}};
+  const data = { raw: {} };
   for (let lineWhois of arrWhois) {
     let prop = lineWhois.split(": ")[0].toLowerCase().replaceAll(" ", "_");
     const value = lineWhois.split(": ")[1];
@@ -69,6 +70,19 @@ function whoisExec(domain) {
     });
   });
 }
+/**
+ * @param {string} domain
+ * @return {string}
+ */
+async function whoiserExec(domain) {
+  const info = await whoiser(domain);
+  const result = {};
+  const infoKeys = Object.keys(info);
+  for (const key of infoKeys) {
+    Object.assign(result, info[key]);
+  }
+  return result;
+}
 
 exports.whois = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
@@ -77,7 +91,7 @@ exports.whois = functions.https.onRequest((request, response) => {
       return;
     }
     const domain = request.body.domain;
-    const whois = await whoisExec(domain);
+    const whois = await whoiserExec(domain);
     response.send(whois);
   });
 });
