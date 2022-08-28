@@ -7,6 +7,9 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
+      devOptions: {
+        enabled: false,
+      },
       manifest: {
         name: "Whois",
         short_name: "Whois",

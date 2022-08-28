@@ -1,9 +1,9 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-// import HelloWorld from './components/HelloWorld.vue'
 import { ref, reactive } from 'vue'
 import { SearchIcon, RefreshIcon } from '@heroicons/vue/solid'
+import { useWebNotification } from "@vueuse/core";
 // import mock from './assets/mock.json'
 const seeRecords = ref(false)
 const domain = ref('')
@@ -11,6 +11,24 @@ const error = ref(false)
 const loading = ref(false)
 let whois = ref('')
 
+/**
+ * VUE USE - Web NOTIFICATION - CONFIG
+ */
+const options = {
+  title: 'Hello, world from VueUse!',
+  dir: 'auto',
+  lang: 'en',
+  renotify: true,
+  tag: 'test',
+}
+const {
+  isSupported,
+  show,
+} = useWebNotification(options)
+if(isSupported) show()
+/**
+ * Main Function - Lookup Whois Call
+ */
 function getWhois() {
   loading.value = !loading.value
   whois.value = ''
