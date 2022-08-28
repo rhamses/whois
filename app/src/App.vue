@@ -66,7 +66,7 @@ function getWhois() {
       setTimeout(() => {
         whois.value = res;
         show({
-          title: "Your domain info is ready!",
+          title: `${domain.value} - Your info is ready`,
           body: "Click here to see the details",
           dir: "auto",
           lang: "en",
