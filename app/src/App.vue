@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { SearchIcon, RefreshIcon } from '@heroicons/vue/solid'
+import { SearchIcon, RefreshIcon, ExclamationIcon } from '@heroicons/vue/solid'
 import { useWebNotification } from "@vueuse/core";
 // import mock from './assets/mock.json'
 const seeRecords = ref(false)
@@ -12,6 +12,7 @@ let whois = ref('')
 /**
  * VUE USE - Web NOTIFICATION - CONFIG
  */
+let isPermissioGranted;
 const options = {
   title: 'Hello, world from VueUse!',
   dir: 'auto',
@@ -23,6 +24,13 @@ const {
   isSupported,
   show,
 } = useWebNotification(options)
+if(isSupported) isPermissioGranted = Notification.permission;
+
+function askPermission() {
+  if (isPermissioGranted === 'default') {
+    Notification.requestPermission()
+  }
+}
 // function doNot() {
 //   show({
 //     title: "Custom Test",
@@ -36,6 +44,9 @@ const {
  * Main Function - Lookup Whois Call
  */
 function getWhois() {
+  // ASK PERMISSION
+  if(isSupported) askPermission()
+  //
   loading.value = !loading.value
   whois.value = ''
   const domainValue = domain.value;
@@ -120,12 +131,31 @@ function getWhois() {
         </div>
       </button>
     </form>
+    <section v-if="loading" id="warningNotification" class="
+      flex
+      justify-between
+      capitalize
+      w-5/6
+      rounded-xl
+      bg-red-100
+      border border-yellow-400
+      px-10 py-2
+      my-5
+      text-yellow-700">
+      <ExclamationIcon class="w-14 text-yellow-500" />
+      <div>
+        <h3 class="text-lg font-bold">This might take a while...</h3>
+        <button v-if="isPermissioGranted === 'default'" @click="askPermission" class="underline">Get notified when the search is complete</button>
+        <p v-if="isPermissioGranted === 'granted'">You'll be notified when we found the info.</p>
+        <p v-if="isPermissioGranted === 'denied'">Consider reset your preference and get notified</p>
+      </div>
+    </section>
     <section v-if="whois && !error" id="cardResult" class="
       relative
       shadow 
       rounded-xl
       border border-gray-200 bg-slate-50
-      my-10
+      my-5
       w-5/6">
       <header>
         <h2 class="text-center text-2xl p-5">Here are the main info from the records</h2>
@@ -181,7 +211,7 @@ function getWhois() {
       bg-red-100
       border border-red-500
       px-10 py-2
-      my-10
+      my-5
       text-red-700">
       {{ whois['%error:101']}}
     </section>
