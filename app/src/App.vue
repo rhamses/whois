@@ -32,13 +32,7 @@ function askPermission() {
   }
 }
 // function doNot() {
-//   show({
-//     title: "Custom Test",
-//     dir: "auto",
-//     lang: "pt-br",
-//     renotify: true,
-//     tag: 'update'
-//   })
+
 // }
 /**
  * Main Function - Lookup Whois Call
@@ -71,6 +65,14 @@ function getWhois() {
       }
       setTimeout(() => {
         whois.value = res;
+        show({
+          title: "Your domain info is ready!",
+          body: "Click here to see the details",
+          dir: "auto",
+          lang: "en",
+          renotify: false,
+          tag: 'update'
+        })
       }, 1000)
     })
     .finally(() => { 
