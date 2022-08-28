@@ -1,7 +1,5 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { SearchIcon, RefreshIcon } from '@heroicons/vue/solid'
 import { useWebNotification } from "@vueuse/core";
 // import mock from './assets/mock.json'
@@ -25,7 +23,15 @@ const {
   isSupported,
   show,
 } = useWebNotification(options)
-if(isSupported) show()
+// function doNot() {
+//   show({
+//     title: "Custom Test",
+//     dir: "auto",
+//     lang: "pt-br",
+//     renotify: true,
+//     tag: 'update'
+//   })
+// }
 /**
  * Main Function - Lookup Whois Call
  */
