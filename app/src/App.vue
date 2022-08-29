@@ -191,7 +191,7 @@ function getWhois() {
         </p>
       </div>
       <div id="details">
-        <a href="#code" @click="seeRecords = !seeRecords" class="text-center underline self-center block p-5">
+        <a href="#code" @click="seeRecords = !seeRecords" class="text-center underline self-center block p-5 see-more">
           Click here to see all records
         </a>
         <article id="detailsRecords" class="flex flex-wrap transition-all max-h-0 overflow-hidden max-h"
@@ -225,7 +225,6 @@ function getWhois() {
     text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
                1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
   }
-
   #highlight {
     width: calc(100% + 3em)
   }
@@ -236,5 +235,9 @@ function getWhois() {
   .show-content {
     height: 100vh;
     overflow: visible;
+  }
+  .see-more:focus {
+    outline: none;
+    font-weight: bold;
   }
 </style>
