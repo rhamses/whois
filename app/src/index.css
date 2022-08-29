@@ -5,7 +5,7 @@
 @font-face {
   font-family: 'Comfortaa';
   src: local('Comfortaa-Bold'),
-      url('fonts/Comfortaa-Bold.ttf');
+      url('/fonts/Comfortaa-Bold.ttf');
   font-weight: bold;
 }
 
