@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "serve": "firebase hosting:channel:deploy whois",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "vite build && firebase deploy --only hosting"
   },
   "dependencies": {
     "@heroicons/vue": "^1.0.6",

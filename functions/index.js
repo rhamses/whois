@@ -76,6 +76,7 @@ function transformData(rawData) {
  */
 async function whoiserExec(domain) {
   const info = await whoiser(domain);
+  console.log(info);
   const result = { raw: {} };
   const infoKeys = Object.keys(info);
   // Get list of properties from the main object
