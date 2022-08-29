@@ -1,14 +1,27 @@
 <script setup>
 import { ref } from 'vue'
-import { SearchIcon, RefreshIcon, ExclamationIcon } from '@heroicons/vue/solid'
+import { SearchIcon, RefreshIcon, ExclamationIcon, UserCircleIcon } from '@heroicons/vue/solid'
 import { useWebNotification } from "@vueuse/core";
-// import mock from './assets/mock.json'
+import { fireLogin } from "./composables/firebase";
 const seeRecords = ref(false)
 const domain = ref('')
 const error = ref(false)
 const loading = ref(false)
 let whois = ref('')
-
+/**
+ * Firebase Functions
+ */
+let user;
+let showForm = ref(false);
+async function login() {
+  fireLogin((err, fireUser) => {
+    if(err) console.log("err", err)
+    user = fireUser;
+  });
+}
+function showLoginForm() {
+  showForm.value = !showForm.value
+}
 /**
  * VUE USE - Web NOTIFICATION - CONFIG
  */
@@ -85,6 +98,17 @@ function getWhois() {
 
 <template>
   <main class="flex flex-col items-center h-screen justify-center max-w-xl ml-auto mr-auto">
+    <header class="fixed w-full text-right top-0 pr-10 pt-5">
+      <a href="#" class="" @click.prevent="showLoginForm()">
+        <UserCircleIcon class="w-8 inline" />
+        <b>SignUp</b>
+      </a>
+      <div v-if="showForm" id="LoginForm" class="flex flex-col items-end">
+        <button @click="login('google')">Google</button>
+        <button @click="login('github')">Github</button>
+        <button @click="login('twitter')">Twitter</button>
+      </div>
+    </header>
     <h1 class="text-7xl font-bold logo">
       WHOIS
     </h1>
