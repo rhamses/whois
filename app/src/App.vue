@@ -85,7 +85,7 @@ function getWhois() {
 
 <template>
   <main class="flex flex-col items-center h-screen justify-center max-w-xl ml-auto mr-auto">
-    <h1 class="text-7xl font-bold">
+    <h1 class="text-7xl font-bold logo">
       WHOIS
     </h1>
     <p class="text-xl">
@@ -220,6 +220,12 @@ function getWhois() {
   </main>
 </template>
 <style scoped>
+  .logo {
+    font-family: 'Comfortaa';
+    text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+               1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+  }
+
   #highlight {
     width: calc(100% + 3em)
   }
